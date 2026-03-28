@@ -1,0 +1,1408 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallos OnLine | Streaming Premium</title>
+  <meta name="description" content="Plataforma demo de streaming premium con eventos en vivo, comunidad, noticias y centro de control." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#08110d;
+      --bg-soft:#102018;
+      --panel:#0f1d16;
+      --panel-2:#15271d;
+      --line:rgba(255,255,255,.09);
+      --text:#f8faf8;
+      --muted:#aeb9b2;
+      --gold:#d9aa2b;
+      --gold-2:#f0c95d;
+      --green:#2c9a5f;
+      --red:#d44a4a;
+      --shadow:0 18px 45px rgba(0,0,0,.35);
+      --radius:22px;
+      --radius-sm:14px;
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Open Sans",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(217,170,43,.10), transparent 30%),
+        linear-gradient(180deg, #06100c 0%, #0a1711 40%, #08110d 100%);
+    }
+
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    button,input,select,textarea{font:inherit}
+
+    .container{
+      width:min(var(--max), 92%);
+      margin:0 auto;
+    }
+
+    .btn{
+      border:0;
+      cursor:pointer;
+      border-radius:999px;
+      padding:13px 20px;
+      font-weight:800;
+      transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease, background .2s ease;
+    }
+
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#15110a;
+      box-shadow:0 10px 24px rgba(217,170,43,.25);
+    }
+    .btn-secondary{
+      background:#1a2d22;
+      color:#fff;
+      border:1px solid var(--line);
+    }
+    .btn-green{
+      background:linear-gradient(135deg, #2f9e63, #3fbc7b);
+      color:#fff;
+    }
+    .btn-red{
+      background:linear-gradient(135deg, #c73d3d, #e35a5a);
+      color:#fff;
+    }
+    .btn-ghost{
+      background:transparent;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .btn[disabled]{
+      opacity:.45;
+      cursor:not-allowed;
+      transform:none;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color:#fff;
+      font-size:.92rem;
+      font-weight:700;
+    }
+
+    .tag-gold{
+      background:rgba(217,170,43,.14);
+      color:#ffe19c;
+      border-color:rgba(217,170,43,.24);
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(12px);
+      background:rgba(6,12,9,.78);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .header-inner{
+      min-height:82px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .brand-mark{
+      width:46px;
+      height:46px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg, var(--gold), #8a6614);
+      color:#15110a;
+      font-weight:900;
+      box-shadow:0 10px 25px rgba(217,170,43,.25);
+      font-family:"Montserrat",sans-serif;
+    }
+
+    .brand-copy strong{
+      display:block;
+      font-family:"Montserrat",sans-serif;
+      font-size:1.05rem;
+      letter-spacing:.3px;
+    }
+
+    .brand-copy span{
+      color:var(--muted);
+      font-size:.88rem;
+    }
+
+    .header-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .hero{
+      padding:48px 0 28px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .hero-copy{
+      padding:34px;
+      border-radius:32px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
+        linear-gradient(135deg, rgba(217,170,43,.10), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:var(--shadow);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(217,170,43,.11);
+      border:1px solid rgba(217,170,43,.22);
+      color:#ffe39b;
+      font-weight:700;
+      margin-bottom:18px;
+    }
+
+    .hero h1{
+      margin:0 0 16px;
+      font-family:"Montserrat",sans-serif;
+      font-size:clamp(2.2rem, 5vw, 4.2rem);
+      line-height:.98;
+      letter-spacing:-1px;
+    }
+
+    .hero p{
+      margin:0 0 24px;
+      font-size:1.02rem;
+      color:#d7dfda;
+      max-width:62ch;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:26px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .mini-card{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .mini-card strong{
+      display:block;
+      font-size:1.3rem;
+      font-family:"Montserrat",sans-serif;
+      margin-bottom:4px;
+    }
+
+    .hero-side{
+      display:grid;
+      gap:18px;
+    }
+
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .panel h3,
+    .panel h2{
+      margin:0 0 8px;
+      font-family:"Montserrat",sans-serif;
+    }
+
+    .muted{color:var(--muted)}
+
+    .section{
+      padding:26px 0;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+
+    .section-head h2{
+      margin:0;
+      font-family:"Montserrat",sans-serif;
+      font-size:1.7rem;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .event-card,
+    .news-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .event-thumb{
+      height:190px;
+      background:
+        linear-gradient(180deg, transparent, rgba(0,0,0,.35)),
+        radial-gradient(circle at top left, rgba(217,170,43,.22), transparent 35%),
+        linear-gradient(135deg, #203226, #0f1c15);
+    }
+
+    .event-body,
+    .news-body{
+      padding:18px;
+    }
+
+    .event-body h3,
+    .news-body h3{
+      margin:0 0 8px;
+      font-size:1.08rem;
+      font-family:"Montserrat",sans-serif;
+    }
+
+    .meta{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:10px 0 14px;
+    }
+
+    .news-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:18px;
+    }
+
+    .news-list{
+      display:grid;
+      gap:18px;
+    }
+
+    footer{
+      margin-top:34px;
+      border-top:1px solid rgba(255,255,255,.07);
+      background:#07100c;
+    }
+
+    .footer-grid{
+      padding:34px 0 18px;
+      display:grid;
+      grid-template-columns:1.2fr .8fr .8fr;
+      gap:22px;
+    }
+
+    .footer-title{
+      font-family:"Montserrat",sans-serif;
+      margin:0 0 10px;
+    }
+
+    .footer-list{
+      display:grid;
+      gap:10px;
+      color:#d0d9d3;
+    }
+
+    .footer-bottom{
+      padding:18px 0 28px;
+      border-top:1px solid rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      color:#96a59b;
+      font-size:.94rem;
+    }
+
+    .wa-float{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:1001;
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#25d366;
+      color:#fff;
+      font-size:1.6rem;
+      font-weight:900;
+      box-shadow:0 18px 35px rgba(37,211,102,.35);
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.62);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:1200;
+    }
+
+    .modal.active{display:flex}
+
+    .modal-card{
+      width:min(980px, 100%);
+      max-height:92vh;
+      overflow:auto;
+      background:#0b1510;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:28px;
+      box-shadow:0 30px 60px rgba(0,0,0,.45);
+    }
+
+    .modal-head{
+      padding:20px 22px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      position:sticky;
+      top:0;
+      background:rgba(11,21,16,.94);
+      backdrop-filter:blur(10px);
+      z-index:2;
+    }
+
+    .modal-body{
+      padding:22px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+    }
+
+    .field{
+      display:grid;
+      gap:8px;
+    }
+
+    .field.full{grid-column:1/-1}
+
+    .field label{
+      font-weight:700;
+      color:#dae4de;
+      font-size:.95rem;
+    }
+
+    .field input,
+    .field textarea,
+    .field select{
+      width:100%;
+      border:1px solid rgba(255,255,255,.08);
+      background:#122019;
+      color:#fff;
+      border-radius:16px;
+      padding:14px 15px;
+      outline:none;
+    }
+
+    .field textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    .auth-hint{
+      margin-top:14px;
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(217,170,43,.10);
+      border:1px solid rgba(217,170,43,.18);
+      color:#ffe8b3;
+      font-size:.95rem;
+    }
+
+    .dashboard{
+      display:none;
+      padding:10px 0 24px;
+    }
+
+    .dashboard.active{display:block}
+
+    .dashboard-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .dashboard-grid{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:20px;
+    }
+
+    .list{
+      display:grid;
+      gap:12px;
+    }
+
+    .stream-item{
+      background:#13221b;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+      display:grid;
+      gap:10px;
+    }
+
+    .stream-item h4{
+      margin:0;
+      font-family:"Montserrat",sans-serif;
+    }
+
+    .stream-view{
+      display:none;
+      margin-top:10px;
+    }
+
+    .stream-view.active{display:block}
+
+    .video-shell{
+      overflow:hidden;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.08);
+      background:#000;
+      box-shadow:var(--shadow);
+    }
+
+    .video-wrap{
+      position:relative;
+      width:100%;
+      padding-top:56.25%;
+    }
+
+    .video-wrap iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    .stream-meta{
+      margin-top:16px;
+      display:grid;
+      gap:14px;
+    }
+
+    .message-box{
+      background:#101d17;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .choice-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .choice-card{
+      background:#101d17;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      padding:18px;
+    }
+
+    .choice-card h4{
+      margin:0 0 14px;
+      font-family:"Montserrat",sans-serif;
+      font-size:1.2rem;
+    }
+
+    .amounts{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .amount-btn{
+      border-radius:14px;
+      padding:12px;
+      font-weight:800;
+      border:1px solid rgba(255,255,255,.08);
+      background:#1a2a22;
+      color:#fff;
+      cursor:pointer;
+    }
+
+    .amount-btn:hover{transform:translateY(-1px)}
+    .amount-btn:disabled{
+      opacity:.38;
+      cursor:not-allowed;
+    }
+
+    .wallet-card{
+      display:grid;
+      gap:10px;
+      background:#101d17;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:20px;
+      padding:18px;
+    }
+
+    .wallet-balance{
+      font-family:"Montserrat",sans-serif;
+      font-size:2rem;
+      color:#ffdf8c;
+      line-height:1;
+    }
+
+    .history{
+      display:grid;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .history-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      background:#122019;
+      border:1px solid rgba(255,255,255,.06);
+      color:#d8e2dc;
+      font-size:.95rem;
+    }
+
+    .admin-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .admin-box{
+      background:#101d17;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+      display:grid;
+      gap:12px;
+    }
+
+    .pill-side{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border-radius:999px;
+      padding:8px 14px;
+      font-weight:800;
+    }
+
+    .pill-left{
+      background:rgba(56,115,255,.16);
+      color:#b9ceff;
+      border:1px solid rgba(56,115,255,.18);
+    }
+
+    .pill-right{
+      background:rgba(255,98,98,.16);
+      color:#ffc2c2;
+      border:1px solid rgba(255,98,98,.18);
+    }
+
+    .hidden{display:none !important;}
+
+    @media (max-width: 1024px){
+      .hero-grid,
+      .dashboard-grid,
+      .news-grid{
+        grid-template-columns:1fr;
+      }
+      .cards{
+        grid-template-columns:repeat(2,1fr);
+      }
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px){
+      .hero{padding-top:26px}
+      .cards,
+      .hero-stats,
+      .choice-grid,
+      .form-grid,
+      .admin-grid{
+        grid-template-columns:1fr;
+      }
+      .header-inner{
+        min-height:auto;
+        padding:14px 0;
+        align-items:flex-start;
+        flex-direction:column;
+      }
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+      .dashboard-top{
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-mark">Ǥ</div>
+        <div class="brand-copy">
+          <strong>Gallos OnLine</strong>
+          <span>Streaming premium y comunidad en vivo</span>
+        </div>
+      </div>
+
+      <div class="header-actions" id="headerActionsPublic">
+        <button class="btn btn-ghost" onclick="openModal('loginModal')">Iniciar sesión</button>
+        <button class="btn btn-primary" onclick="openModal('registerModal')">Registrarse</button>
+      </div>
+
+      <div class="header-actions hidden" id="headerActionsPrivate">
+        <span class="tag">Usuario: <strong id="headerUser">SCastillo</strong></span>
+        <span class="tag tag-gold">Saldo: <strong id="headerBalance">Ǥ 0</strong></span>
+        <button class="btn btn-secondary" onclick="scrollToSection('dashboard')">Mi panel</button>
+        <button class="btn btn-ghost" onclick="logout()">Salir</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="publicSite">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">● En vivo · Eventos premium · Comunidad exclusiva</div>
+          <h1>Streaming de alto impacto con acceso rápido, saldo virtual y control total.</h1>
+          <p>
+            Vive transmisiones premium, sigue eventos especiales en tiempo real, participa con tu saldo ficticio Ǥ
+            y administra todo desde un centro de control interno pensado para una operación ágil y moderna.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="openModal('registerModal')">Crear cuenta</button>
+            <button class="btn btn-secondary" onclick="openModal('loginModal')">Entrar con usuario demo</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="mini-card">
+              <strong>24/7</strong>
+              <span class="muted">Disponibilidad de la plataforma</span>
+            </div>
+            <div class="mini-card">
+              <strong>+12</strong>
+              <span class="muted">Eventos destacados por semana</span>
+            </div>
+            <div class="mini-card">
+              <strong>Ǥ virtual</strong>
+              <span class="muted">Sistema de saldo ficticio configurable</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <div class="panel">
+            <h3>Acceso demo inmediato</h3>
+            <p class="muted">Usa estas credenciales para probar la maqueta:</p>
+            <div class="history">
+              <div class="history-item"><span>Usuario</span><strong>SCastillo</strong></div>
+              <div class="history-item"><span>Clave</span><strong>Lima2026</strong></div>
+              <div class="history-item"><span>Moneda virtual</span><strong>Ǥ Dólar Gallero</strong></div>
+            </div>
+            <div style="margin-top:14px;">
+              <button class="btn btn-primary" onclick="quickDemoLogin()">Entrar ahora</button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Equivalencia demo</h3>
+            <p class="muted">En esta maqueta:</p>
+            <div class="wallet-balance">Ǥ 1 = S/ 5</div>
+            <p class="muted" style="margin:0;">El saldo es ficticio y lo asignas manualmente desde el centro de control.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="eventos">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Próximos eventos</h2>
+            <p class="muted">Tarjetas destacadas para invitar al usuario a entrar y mirar la jornada.</p>
+          </div>
+        </div>
+
+        <div class="cards" id="publicEventsGrid"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container news-grid">
+        <div>
+          <div class="section-head">
+            <div>
+              <h2>Noticias de la comunidad</h2>
+              <p class="muted">Espacio para anuncios, novedades y agenda editorial.</p>
+            </div>
+          </div>
+
+          <div class="news-list">
+            <article class="news-card">
+              <div class="news-body">
+                <h3>Nuevo calendario semanal disponible</h3>
+                <p class="muted">Ya puedes revisar la programación de transmisiones destacadas y jornadas especiales desde la portada.</p>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <div class="news-body">
+                <h3>Centro de control actualizado</h3>
+                <p class="muted">Ahora puedes cambiar el mensaje del evento, el favorito visible y el video principal de forma inmediata.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-head">
+            <div>
+              <h2>Sorteos</h2>
+              <p class="muted">Contenido promocional para fidelizar comunidad.</p>
+            </div>
+          </div>
+
+          <article class="news-card">
+            <div class="news-body">
+              <h3>Sorteo de bienvenida</h3>
+              <p class="muted">Entrega de saldo Ǥ promocional para usuarios activos de la comunidad.</p>
+              <div class="meta">
+                <span class="tag">Promo activa</span>
+                <span class="tag tag-gold">Ǥ Bonus</span>
+              </div>
+              <button class="btn btn-secondary" onclick="openModal('registerModal')">Quiero participar</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="dashboard" id="dashboard">
+    <div class="container">
+      <div class="dashboard-top">
+        <div>
+          <h2 style="margin:0 0 6px;font-family:Montserrat,sans-serif;">Bienvenido, <span id="dashboardUser">SCastillo</span></h2>
+          <p class="muted" style="margin:0;">Elige un evento para abrir la transmisión y usar tu saldo ficticio Ǥ.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <span class="tag">Saldo disponible: <strong id="dashboardBalance">Ǥ 0</strong></span>
+          <span class="tag">Equivale a <strong id="dashboardBalanceSol">S/ 0</strong></span>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <aside class="panel">
+          <h3>Eventos en vivo</h3>
+          <p class="muted">Selecciona cuál transmisión quieres ver.</p>
+          <div class="list" id="privateEventsList"></div>
+
+          <div class="wallet-card" style="margin-top:18px;">
+            <span class="muted">Tu saldo global</span>
+            <div class="wallet-balance" id="walletBalanceBig">Ǥ 0</div>
+            <span class="muted">Configurado manualmente desde el centro de control.</span>
+          </div>
+
+          <div class="wallet-card" style="margin-top:18px;">
+            <h3 style="margin:0;">Movimientos recientes</h3>
+            <div class="history" id="historyList"></div>
+          </div>
+        </aside>
+
+        <div>
+          <div class="stream-view active" id="streamView">
+            <div class="video-shell">
+              <div class="video-wrap">
+                <iframe id="streamFrame" src="" title="Streaming demo" allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div class="stream-meta">
+              <div class="panel">
+                <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;">
+                  <div>
+                    <h2 id="streamTitle">Evento en vivo</h2>
+                    <p class="muted" id="streamSubtitle" style="margin:0;">Transmisión seleccionada</p>
+                  </div>
+                  <span class="tag tag-gold" id="streamStatus">EN DIRECTO</span>
+                </div>
+
+                <div class="message-box" style="margin-top:16px;">
+                  <div class="muted" style="margin-bottom:8px;">Mensaje en control:</div>
+                  <div id="messageText" style="font-weight:800;font-size:1.02rem;">Gallo favorito:</div>
+                  <div style="margin-top:12px;">
+                    <span class="pill-side pill-left" id="favoritePill">Izquierda</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="choice-grid">
+                <div class="choice-card">
+                  <h4>Lado Izquierdo</h4>
+                  <button class="btn btn-primary" id="btnActivateLeft" onclick="activateSide('left')">Voy Izquierda</button>
+
+                  <div class="amounts">
+                    <button class="amount-btn" data-side="left" onclick="applyAmount('left',50)" disabled>Ǥ 50</button>
+                    <button class="amount-btn" data-side="left" onclick="applyAmount('left',100)" disabled>Ǥ 100</button>
+                    <button class="amount-btn" data-side="left" onclick="applyAmount('left',200)" disabled>Ǥ 200</button>
+                    <button class="amount-btn" data-side="left" onclick="applyAmount('left',500)" disabled>Ǥ 500</button>
+                  </div>
+                </div>
+
+                <div class="choice-card">
+                  <h4>Lado Derecho</h4>
+                  <button class="btn btn-secondary" id="btnActivateRight" onclick="activateSide('right')">Voy Derecha</button>
+
+                  <div class="amounts">
+                    <button class="amount-btn" data-side="right" onclick="applyAmount('right',50)" disabled>Ǥ 50</button>
+                    <button class="amount-btn" data-side="right" onclick="applyAmount('right',100)" disabled>Ǥ 100</button>
+                    <button class="amount-btn" data-side="right" onclick="applyAmount('right',200)" disabled>Ǥ 200</button>
+                    <button class="amount-btn" data-side="right" onclick="applyAmount('right',500)" disabled>Ǥ 500</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <h3>Centro de control</h3>
+                <p class="muted">Panel demo interno para editar el evento actual.</p>
+
+                <div class="admin-grid">
+                  <div class="admin-box">
+                    <label for="adminMessage"><strong>Mensaje editable</strong></label>
+                    <input id="adminMessage" value="Gallo favorito:" />
+                    <button class="btn btn-secondary" onclick="updateMessage()">Actualizar mensaje</button>
+                  </div>
+
+                  <div class="admin-box">
+                    <label for="adminFavorite"><strong>Pastilla favorita</strong></label>
+                    <select id="adminFavorite">
+                      <option value="left">Izquierda</option>
+                      <option value="right">Derecha</option>
+                    </select>
+                    <button class="btn btn-secondary" onclick="updateFavorite()">Actualizar favorito</button>
+                  </div>
+
+                  <div class="admin-box">
+                    <label for="adminBalance"><strong>Asignar saldo Ǥ</strong></label>
+                    <input id="adminBalance" type="number" min="0" step="1" value="2000" />
+                    <button class="btn btn-secondary" onclick="assignBalance()">Asignar saldo</button>
+                  </div>
+
+                  <div class="admin-box">
+                    <label for="adminYoutube"><strong>Link YouTube embed</strong></label>
+                    <input id="adminYoutube" value="https://www.youtube.com/embed/jfKfPfyJRdk" />
+                    <button class="btn btn-secondary" onclick="updateVideo()">Cambiar video</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3 class="footer-title">Gallos OnLine</h3>
+        <p class="muted">
+          Plataforma demo de streaming premium con acceso a eventos, panel de usuario,
+          saldo ficticio Ǥ y centro de control interno.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-title">Secciones</h4>
+        <div class="footer-list">
+          <a href="#eventos">Próximos eventos</a>
+          <a href="javascript:void(0)" onclick="openModal('loginModal')">Iniciar sesión</a>
+          <a href="javascript:void(0)" onclick="openModal('registerModal')">Registro</a>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="footer-title">Comunidad</h4>
+        <div class="footer-list">
+          <span>Noticias y sorteos</span>
+          <span>Soporte por WhatsApp</span>
+          <span>Eventos en vivo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© <span id="year"></span> Gallos OnLine. Todos los derechos reservados.</span>
+      <span>Maqueta web demo · Streaming + saldo ficticio Ǥ</span>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
+
+  <!-- LOGIN -->
+  <div class="modal" id="loginModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong>Iniciar sesión</strong>
+        <button class="btn btn-ghost" onclick="closeModal('loginModal')">Cerrar</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="field">
+            <label>Usuario</label>
+            <input id="loginUser" placeholder="SCastillo" />
+          </div>
+          <div class="field">
+            <label>Clave</label>
+            <input id="loginPass" type="password" placeholder="Lima2026" />
+          </div>
+        </div>
+
+        <div class="auth-hint">
+          Credenciales demo: <strong>SCastillo</strong> / <strong>Lima2026</strong>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="login()">Entrar</button>
+          <button class="btn btn-secondary" onclick="quickDemoLogin()">Entrar con demo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGISTER -->
+  <div class="modal" id="registerModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <strong>Registro de usuario</strong>
+        <button class="btn btn-ghost" onclick="closeModal('registerModal')">Cerrar</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="field">
+            <label>Nombres y apellidos</label>
+            <input placeholder="Nombre del cliente" />
+          </div>
+          <div class="field">
+            <label>Correo</label>
+            <input type="email" placeholder="correo@ejemplo.com" />
+          </div>
+          <div class="field">
+            <label>Celular</label>
+            <input placeholder="+51 999 999 999" />
+          </div>
+          <div class="field">
+            <label>Tipo de documento</label>
+            <select>
+              <option>DNI</option>
+              <option>CE</option>
+              <option>Pasaporte</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Número de documento</label>
+            <input placeholder="12345678" />
+          </div>
+          <div class="field">
+            <label>Usuario deseado</label>
+            <input placeholder="Tu usuario" />
+          </div>
+          <div class="field full">
+            <label>Observación</label>
+            <textarea placeholder="Esta maqueta simula el registro, sin backend real."></textarea>
+          </div>
+        </div>
+
+        <div class="auth-hint">
+          Esta maqueta solo simula el flujo visual. Para pruebas inmediatas puedes entrar con el usuario demo.
+        </div>
+
+        <div style="margin-top:18px;">
+          <button class="btn btn-primary" onclick="registerMock()">Crear cuenta demo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const DEMO_USER = {
+      username: "SCastillo",
+      password: "Lima2026",
+      name: "Sergio Castillo"
+    };
+
+    const state = {
+      loggedIn: false,
+      currentUser: null,
+      balance: 2000,
+      activeSide: null,
+      selectedEventId: "evt1",
+      message: "Gallo favorito:",
+      favorite: "left",
+      events: [
+        {
+          id: "evt1",
+          title: "Final del Círculo Gallístico del Perú",
+          subtitle: "Jornada especial · Evento premium",
+          date: "Hoy · 8:00 PM",
+          location: "Lima",
+          status: "EN DIRECTO",
+          imageLabel: "Evento estelar",
+          youtube: "https://www.youtube.com/embed/jfKfPfyJRdk"
+        },
+        {
+          id: "evt2",
+          title: "Desafío de Campeones",
+          subtitle: "Transmisión exclusiva · Acceso online",
+          date: "Mañana · 7:30 PM",
+          location: "Trujillo",
+          status: "PROGRAMADO",
+          imageLabel: "Próximo evento",
+          youtube: "https://www.youtube.com/embed/5qap5aO4i9A"
+        },
+        {
+          id: "evt3",
+          title: "Copa Gallística del Norte",
+          subtitle: "Streaming premium · Jornada regional",
+          date: "Domingo · 6:00 PM",
+          location: "Chiclayo",
+          status: "PROGRAMADO",
+          imageLabel: "Jornada especial",
+          youtube: "https://www.youtube.com/embed/jfKfPfyJRdk"
+        }
+      ],
+      history: [
+        { label: "Saldo inicial asignado", value: "+ Ǥ 2000" }
+      ]
+    };
+
+    function qs(id){ return document.getElementById(id); }
+
+    function openModal(id){ qs(id).classList.add("active"); }
+    function closeModal(id){ qs(id).classList.remove("active"); }
+
+    window.addEventListener("click", (e) => {
+      document.querySelectorAll(".modal.active").forEach(modal => {
+        if (e.target === modal) modal.classList.remove("active");
+      });
+    });
+
+    function scrollToSection(id){
+      const el = qs(id);
+      if (el) el.scrollIntoView({ behavior:"smooth", block:"start" });
+    }
+
+    function registerMock(){
+      alert("Registro demo completado. Ahora puedes ingresar con el usuario ficticio SCastillo / Lima2026.");
+      closeModal("registerModal");
+      openModal("loginModal");
+    }
+
+    function login(){
+      const user = qs("loginUser").value.trim();
+      const pass = qs("loginPass").value.trim();
+
+      if(user === DEMO_USER.username && pass === DEMO_USER.password){
+        finishLogin();
+      }else{
+        alert("Credenciales incorrectas. Usa SCastillo / Lima2026");
+      }
+    }
+
+    function quickDemoLogin(){
+      qs("loginUser").value = DEMO_USER.username;
+      qs("loginPass").value = DEMO_USER.password;
+      finishLogin();
+    }
+
+    function finishLogin(){
+      state.loggedIn = true;
+      state.currentUser = DEMO_USER.name;
+      closeModal("loginModal");
+      closeModal("registerModal");
+      renderAuth();
+      renderEvents();
+      renderDashboard();
+      scrollToSection("dashboard");
+    }
+
+    function logout(){
+      state.loggedIn = false;
+      state.currentUser = null;
+      renderAuth();
+      window.scrollTo({ top:0, behavior:"smooth" });
+    }
+
+    function renderAuth(){
+      qs("headerActionsPublic").classList.toggle("hidden", state.loggedIn);
+      qs("headerActionsPrivate").classList.toggle("hidden", !state.loggedIn);
+      qs("publicSite").classList.toggle("hidden", state.loggedIn);
+      qs("dashboard").classList.toggle("active", state.loggedIn);
+
+      if(state.loggedIn){
+        qs("headerUser").textContent = DEMO_USER.username;
+      }
+      updateBalanceUI();
+    }
+
+    function getEventById(id){
+      return state.events.find(e => e.id === id) || state.events[0];
+    }
+
+    function renderEvents(){
+      const publicGrid = qs("publicEventsGrid");
+      const privateList = qs("privateEventsList");
+
+      publicGrid.innerHTML = state.events.map(event => `
+        <article class="event-card">
+          <div class="event-thumb"></div>
+          <div class="event-body">
+            <span class="tag tag-gold">${event.imageLabel}</span>
+            <h3>${event.title}</h3>
+            <p class="muted">${event.subtitle}</p>
+            <div class="meta">
+              <span class="tag">${event.date}</span>
+              <span class="tag">${event.location}</span>
+            </div>
+            <button class="btn btn-primary" onclick="quickDemoLogin()">Ver transmisión</button>
+          </div>
+        </article>
+      `).join("");
+
+      privateList.innerHTML = state.events.map(event => `
+        <div class="stream-item">
+          <div>
+            <h4>${event.title}</h4>
+            <div class="muted">${event.subtitle}</div>
+          </div>
+          <div class="meta">
+            <span class="tag">${event.date}</span>
+            <span class="tag">${event.status}</span>
+          </div>
+          <button class="btn ${state.selectedEventId === event.id ? "btn-primary" : "btn-secondary"}"
+            onclick="openEvent('${event.id}')">
+            ${state.selectedEventId === event.id ? "Abierto ahora" : "Abrir evento"}
+          </button>
+        </div>
+      `).join("");
+    }
+
+    function renderDashboard(){
+      const event = getEventById(state.selectedEventId);
+      qs("dashboardUser").textContent = state.currentUser || DEMO_USER.name;
+      qs("streamTitle").textContent = event.title;
+      qs("streamSubtitle").textContent = event.subtitle;
+      qs("streamStatus").textContent = event.status;
+      qs("streamFrame").src = event.youtube;
+      qs("messageText").textContent = state.message;
+      updateFavoritePill();
+      renderHistory();
+      renderEvents();
+      resetButtons();
+      qs("adminMessage").value = state.message;
+      qs("adminFavorite").value = state.favorite;
+      qs("adminYoutube").value = event.youtube;
+      qs("adminBalance").value = state.balance;
+    }
+
+    function openEvent(id){
+      state.selectedEventId = id;
+      renderDashboard();
+    }
+
+    function updateFavoritePill(){
+      const pill = qs("favoritePill");
+      if(state.favorite === "left"){
+        pill.textContent = "Izquierda";
+        pill.className = "pill-side pill-left";
+      }else{
+        pill.textContent = "Derecha";
+        pill.className = "pill-side pill-right";
+      }
+    }
+
+    function activateSide(side){
+      state.activeSide = side;
+
+      document.querySelectorAll(".amount-btn").forEach(btn => {
+        const isCurrent = btn.dataset.side === side;
+        btn.disabled = !isCurrent;
+      });
+
+      qs("btnActivateLeft").className = side === "left" ? "btn btn-primary" : "btn btn-secondary";
+      qs("btnActivateRight").className = side === "right" ? "btn btn-primary" : "btn btn-secondary";
+    }
+
+    function applyAmount(side, amount){
+      if(state.activeSide !== side){
+        alert("Primero activa el lado principal.");
+        return;
+      }
+
+      if(state.balance < amount){
+        alert("Saldo Ǥ insuficiente.");
+        return;
+      }
+
+      state.balance -= amount;
+      const sideLabel = side === "left" ? "Izquierda" : "Derecha";
+
+      state.history.unshift({
+        label: `Selección ${sideLabel} en ${getEventById(state.selectedEventId).title}`,
+        value: `- Ǥ ${amount}`
+      });
+
+      updateBalanceUI();
+      renderHistory();
+      alert(`Has seleccionado ${sideLabel} con Ǥ ${amount}.`);
+    }
+
+    function updateBalanceUI(){
+      const soles = state.balance * 5;
+      qs("headerBalance").textContent = `Ǥ ${state.balance}`;
+      qs("dashboardBalance").textContent = `Ǥ ${state.balance}`;
+      qs("walletBalanceBig").textContent = `Ǥ ${state.balance}`;
+      qs("dashboardBalanceSol").textContent = `S/ ${soles}`;
+    }
+
+    function renderHistory(){
+      const list = qs("historyList");
+      list.innerHTML = state.history.slice(0, 6).map(item => `
+        <div class="history-item">
+          <span>${item.label}</span>
+          <strong>${item.value}</strong>
+        </div>
+      `).join("");
+    }
+
+    function resetButtons(){
+      state.activeSide = null;
+      document.querySelectorAll(".amount-btn").forEach(btn => btn.disabled = true);
+      qs("btnActivateLeft").className = "btn btn-primary";
+      qs("btnActivateRight").className = "btn btn-secondary";
+    }
+
+    function updateMessage(){
+      state.message = qs("adminMessage").value.trim() || "Gallo favorito:";
+      qs("messageText").textContent = state.message;
+    }
+
+    function updateFavorite(){
+      state.favorite = qs("adminFavorite").value;
+      updateFavoritePill();
+    }
+
+    function assignBalance(){
+      const value = Number(qs("adminBalance").value);
+      if(Number.isNaN(value) || value < 0){
+        alert("Ingresa un saldo válido.");
+        return;
+      }
+      state.balance = value;
+      state.history.unshift({
+        label: "Ajuste manual desde centro de control",
+        value: `= Ǥ ${value}`
+      });
+      updateBalanceUI();
+      renderHistory();
+      alert("Saldo actualizado.");
+    }
+
+    function updateVideo(){
+      const event = getEventById(state.selectedEventId);
+      const url = qs("adminYoutube").value.trim();
+      if(!url){
+        alert("Ingresa un link embed de YouTube.");
+        return;
+      }
+      event.youtube = url;
+      qs("streamFrame").src = url;
+      alert("Video actualizado.");
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape"){
+        document.querySelectorAll(".modal.active").forEach(m => m.classList.remove("active"));
+      }
+    });
+
+    qs("year").textContent = new Date().getFullYear();
+    renderAuth();
+    renderEvents();
+    renderDashboard();
+  </script>
+</body>
+</html>
