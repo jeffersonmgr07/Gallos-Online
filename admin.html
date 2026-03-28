@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin | Gallos OnLine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{
+      margin:0;
+      font-family:"Open Sans",sans-serif;
+      background:#08110d;
+      color:#f8faf8;
+    }
+    .container{width:min(980px,92%);margin:0 auto;padding:28px 0}
+    h1,h2{font-family:"Montserrat",sans-serif}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{
+      background:#0f1d16;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      padding:20px;
+    }
+    .field{display:grid;gap:8px;margin-bottom:14px}
+    input,select{
+      background:#122019;color:#fff;border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;padding:14px;font:inherit;
+    }
+    button{
+      border:0;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer;
+      background:linear-gradient(135deg,#d9aa2b,#f0c95d);color:#15110a;
+    }
+    .muted{color:#aeb9b2}
+    .preview{
+      margin-top:22px;
+      background:#101d17;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:18px;
+    }
+    .pill{
+      display:inline-flex;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(56,115,255,.16);
+      color:#b9ceff;
+      font-weight:800;
+      margin-left:10px;
+    }
+    a{color:#f0c95d;text-decoration:none}
+    @media (max-width:800px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Centro de control</h1>
+    <p class="muted">Editor de textos del bloque principal del evento.</p>
+    <p><a href="index.html">Volver al sitio</a></p>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Editar bloque principal</h2>
+
+        <div class="field">
+          <label>Texto principal</label>
+          <input id="mainText" value="Gallo favorito:">
+        </div>
+
+        <div class="field">
+          <label>Pastilla</label>
+          <select id="favoriteSide">
+            <option value="Izquierda">Izquierda</option>
+            <option value="Derecha">Derecha</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Texto de galpón</label>
+          <input id="coopField" value="Galpón: Familia Castillo">
+        </div>
+
+        <div class="field">
+          <label>Texto nombre del gallo</label>
+          <input id="birdField" value="Nombre del Gallo: Ave Fenix">
+        </div>
+
+        <button onclick="saveContent()">Guardar cambios</button>
+      </div>
+
+      <div class="card">
+        <h2>Vista previa</h2>
+        <div class="preview">
+          <div>
+            <strong id="previewMain">Gallo favorito:</strong>
+            <span class="pill" id="previewSide">Izquierda</span>
+          </div>
+          <div style="margin-top:14px;font-weight:700;" id="previewCoop">Galpón: Familia Castillo</div>
+          <div style="margin-top:6px;font-weight:700;" id="previewBird">Nombre del Gallo: Ave Fenix</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updatePreview(){
+      document.getElementById('previewMain').textContent = document.getElementById('mainText').value;
+      document.getElementById('previewSide').textContent = document.getElementById('favoriteSide').value;
+      document.getElementById('previewCoop').textContent = document.getElementById('coopField').value;
+      document.getElementById('previewBird').textContent = document.getElementById('birdField').value;
+    }
+
+    function saveContent(){
+      const data = {
+        mainText: document.getElementById('mainText').value,
+        favoriteSide: document.getElementById('favoriteSide').value,
+        coopText: document.getElementById('coopField').value,
+        birdText: document.getElementById('birdField').value
+      };
+
+      localStorage.setItem('gallosOnlineAdminContent', JSON.stringify(data));
+      alert('Contenido guardado en esta maqueta.');
+    }
+
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', updatePreview);
+      el.addEventListener('change', updatePreview);
+    });
+
+    const saved = localStorage.getItem('gallosOnlineAdminContent');
+    if(saved){
+      const data = JSON.parse(saved);
+      document.getElementById('mainText').value = data.mainText || 'Gallo favorito:';
+      document.getElementById('favoriteSide').value = data.favoriteSide || 'Izquierda';
+      document.getElementById('coopField').value = data.coopText || 'Galpón: Familia Castillo';
+      document.getElementById('birdField').value = data.birdText || 'Nombre del Gallo: Ave Fenix';
+    }
+    updatePreview();
+  </script>
+</body>
+</html>
