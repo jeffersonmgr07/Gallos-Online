@@ -11,7 +11,6 @@
     :root{
       --bg:#08110d;
       --panel:#0f1d16;
-      --panel-2:#15271d;
       --line:rgba(255,255,255,.09);
       --text:#f8faf8;
       --muted:#aeb9b2;
@@ -32,7 +31,6 @@
     button,input,select{font:inherit}
     .container{width:min(var(--max),92%);margin:0 auto}
     .hidden{display:none !important}
-
     .btn{
       border:0; cursor:pointer; border-radius:999px; padding:13px 20px;
       font-weight:800; transition:.2s ease;
@@ -42,12 +40,10 @@
     .btn-secondary{background:#1a2d22;color:#fff;border:1px solid var(--line)}
     .btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.18)}
     .btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
-
     .tag{
       display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;
       background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);font-size:.92rem;font-weight:700;
     }
-
     header{
       position:sticky;top:0;z-index:1000;backdrop-filter:blur(12px);
       background:rgba(6,12,9,.78);border-bottom:1px solid rgba(255,255,255,.06);
@@ -56,21 +52,26 @@
       min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:18px;
     }
     .brand{display:flex;align-items:center;gap:14px}
-    .brand img{
-      height:54px;
-      width:auto;
-      display:block;
-    }
+    .brand img{height:54px;width:auto;display:block}
     .brand-copy strong{
       display:block;font-family:"Montserrat",sans-serif;font-size:1.05rem;
     }
     .brand-copy span{color:var(--muted);font-size:.88rem}
+    .main-nav{
+      display:flex;
+      gap:20px;
+      align-items:center;
+      flex-wrap:wrap;
+      color:#e7efe9;
+      font-weight:700;
+    }
+    .main-nav a:hover{color:var(--gold-2)}
     .header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative}
     .panel-menu{
       position:absolute;
       top:54px;
       right:70px;
-      min-width:220px;
+      min-width:240px;
       background:#0b1510;
       border:1px solid rgba(255,255,255,.08);
       border-radius:18px;
@@ -86,7 +87,6 @@
       background:#13211a;
     }
     .panel-menu a:hover{background:#1b2d23}
-
     .hero{padding:40px 0 28px}
     .hero-grid{
       display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:stretch;
@@ -107,7 +107,6 @@
     }
     .hero p{margin:0 0 24px;font-size:1.02rem;color:#d7dfda;max-width:62ch}
     .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-
     .hero-image{
       min-height:460px;
       border-radius:32px;
@@ -119,16 +118,21 @@
         linear-gradient(90deg,rgba(8,17,13,.15),rgba(8,17,13,.55)),
         url('img/hero1.jpg') center/cover no-repeat;
     }
-
     .section{padding:26px 0}
     .section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:18px}
     .section-head h2{margin:0;font-family:"Montserrat",sans-serif;font-size:1.7rem}
     .muted{color:var(--muted)}
-
     .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .event-card,.news-card{
+    .plan-card,.event-card,.news-card,.sponsor-card{
       background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));
       border:1px solid rgba(255,255,255,.08);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);
+    }
+    .plan-body,.event-body,.news-body,.sponsor-body{padding:18px}
+    .price{
+      font-size:1.8rem;
+      font-family:"Montserrat",sans-serif;
+      color:#ffe29b;
+      margin:8px 0 12px;
     }
     .event-thumb{
       height:190px;
@@ -137,18 +141,29 @@
         radial-gradient(circle at top left,rgba(217,170,43,.22),transparent 35%),
         linear-gradient(135deg,#203226,#0f1c15);
     }
-    .event-body,.news-body{padding:18px}
-    .event-body h3,.news-body h3{margin:0 0 8px;font-size:1.08rem;font-family:"Montserrat",sans-serif}
+    .event-body h3,.news-body h3,.plan-body h3{margin:0 0 8px;font-size:1.08rem;font-family:"Montserrat",sans-serif}
     .meta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
-
     .news-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px}
     .news-list{display:grid;gap:18px}
-
+    .sponsors-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+    }
+    .sponsor-body{
+      min-height:90px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#d4dbd6;
+      font-weight:800;
+      font-family:"Montserrat",sans-serif;
+    }
     footer{
       margin-top:34px;border-top:1px solid rgba(255,255,255,.07);background:#07100c;
     }
     .footer-grid{
-      padding:34px 0 18px;display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:22px;
+      padding:34px 0 18px;display:grid;grid-template-columns:1.2fr .8fr .8fr .8fr;gap:22px;
     }
     .footer-title{font-family:"Montserrat",sans-serif;margin:0 0 10px}
     .footer-list{display:grid;gap:10px;color:#d0d9d3}
@@ -156,13 +171,11 @@
       padding:18px 0 28px;border-top:1px solid rgba(255,255,255,.06);
       display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#96a59b;font-size:.94rem;
     }
-
     .wa-float{
       position:fixed;right:18px;bottom:18px;z-index:1001;width:58px;height:58px;border-radius:50%;
       display:grid;place-items:center;background:#25d366;color:#fff;font-size:1.6rem;font-weight:900;
       box-shadow:0 18px 35px rgba(37,211,102,.35);
     }
-
     .modal{
       position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;padding:20px;z-index:1200;
     }
@@ -171,9 +184,7 @@
       width:min(720px,100%);max-height:92vh;overflow:auto;background:#0b1510;
       border:1px solid rgba(255,255,255,.08);border-radius:28px;box-shadow:0 30px 60px rgba(0,0,0,.45);
     }
-    .modal-head{
-      padding:0;border-bottom:1px solid rgba(255,255,255,.07);position:relative;
-    }
+    .modal-head{padding:0;border-bottom:1px solid rgba(255,255,255,.07);position:relative}
     .modal-banner{
       height:120px;
       background:
@@ -194,7 +205,6 @@
     .field input,.field select{
       width:100%;border:1px solid rgba(255,255,255,.08);background:#122019;color:#fff;border-radius:16px;padding:14px 15px;outline:none;
     }
-
     .dashboard{display:none;padding:10px 0 24px}
     .dashboard.active{display:block}
     .dashboard-top{
@@ -211,24 +221,27 @@
       background:#13221b;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;display:grid;gap:10px;
     }
     .stream-item h4{margin:0;font-family:"Montserrat",sans-serif}
-
     .video-shell{
       overflow:hidden;border-radius:24px;border:1px solid rgba(255,255,255,.08);background:#000;box-shadow:var(--shadow);
     }
     .video-wrap{position:relative;width:100%;padding-top:56.25%}
     .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-
     .stream-meta{margin-top:16px;display:grid;gap:14px}
     .message-box{
       background:#101d17;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:16px;
     }
-
+    .editable-lines{
+      margin-top:12px;
+      display:grid;
+      gap:6px;
+      color:#d6e0da;
+      font-weight:700;
+    }
     .pill-side{
       display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 14px;font-weight:800;
     }
     .pill-left{background:rgba(56,115,255,.16);color:#b9ceff;border:1px solid rgba(56,115,255,.18)}
     .pill-right{background:rgba(255,98,98,.16);color:#ffc2c2;border:1px solid rgba(255,98,98,.18)}
-
     .choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
     .choice-card{
       background:#101d17;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:18px;
@@ -245,16 +258,20 @@
     }
     .amount-btn:disabled{opacity:.38;cursor:not-allowed}
 
-    @media (max-width:1024px){
-      .hero-grid,.dashboard-grid,.news-grid{grid-template-columns:1fr}
-      .cards{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:1100px){
+      .header-inner{flex-wrap:wrap}
       .footer-grid{grid-template-columns:1fr 1fr}
     }
+    @media (max-width:1024px){
+      .hero-grid,.dashboard-grid,.news-grid{grid-template-columns:1fr}
+      .cards,.sponsors-grid{grid-template-columns:repeat(2,1fr)}
+    }
     @media (max-width:768px){
-      .cards,.choice-grid,.form-grid{grid-template-columns:1fr}
+      .cards,.choice-grid,.form-grid,.sponsors-grid{grid-template-columns:1fr}
       .header-inner{min-height:auto;padding:14px 0;align-items:flex-start;flex-direction:column}
       .footer-grid{grid-template-columns:1fr}
       .panel-menu{right:0;left:0;top:58px}
+      .main-nav{gap:14px}
     }
   </style>
 </head>
@@ -270,6 +287,13 @@
         </div>
       </div>
 
+      <nav class="main-nav">
+        <a href="#planes">Planes</a>
+        <a href="#eventos">Eventos</a>
+        <a href="#criadores">Criadores</a>
+        <a href="#galeria">Galería</a>
+      </nav>
+
       <div class="header-actions" id="headerActionsPublic">
         <button class="btn btn-ghost" onclick="openModal('loginModal')">Iniciar sesión</button>
         <button class="btn btn-primary" onclick="openModal('registerModal')">Registrarse</button>
@@ -277,12 +301,15 @@
 
       <div class="header-actions hidden" id="headerActionsPrivate">
         <span class="tag">Usuario: <strong id="headerUser">SCastillo</strong></span>
+        <span class="tag">Saldo disponible: <strong id="headerBalance">Ǥ 100.00</strong></span>
         <button class="btn btn-secondary" onclick="togglePanelMenu()">Mi panel</button>
         <div class="panel-menu" id="panelMenu">
           <a href="javascript:void(0)">Recargar saldo</a>
           <a href="javascript:void(0)">Mis datos</a>
           <a href="javascript:void(0)">Premios por cobrar</a>
           <a href="javascript:void(0)">Casos pendientes</a>
+          <a href="javascript:void(0)">Mi suscripción</a>
+          <a href="javascript:void(0)">Historial de apuestas</a>
         </div>
         <button class="btn btn-ghost" onclick="logout()">Salir</button>
       </div>
@@ -309,6 +336,46 @@
       </div>
     </section>
 
+    <section class="section" id="planes">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Planes</h2>
+            <p class="muted">Accesos pensados para que cada usuario elija cómo vivir la experiencia.</p>
+          </div>
+        </div>
+
+        <div class="cards">
+          <article class="plan-card">
+            <div class="plan-body">
+              <h3>Plan Diario</h3>
+              <div class="price">US$ 5.90</div>
+              <p class="muted">Acceso durante toda la jornada del día.</p>
+              <button class="btn btn-primary">Elegir plan</button>
+            </div>
+          </article>
+
+          <article class="plan-card">
+            <div class="plan-body">
+              <h3>Plan Semanal</h3>
+              <div class="price">US$ 15.90</div>
+              <p class="muted">Ideal para seguir varios eventos en la semana.</p>
+              <button class="btn btn-primary">Elegir plan</button>
+            </div>
+          </article>
+
+          <article class="plan-card">
+            <div class="plan-body">
+              <h3>Plan Mensual</h3>
+              <div class="price">US$ 34.90</div>
+              <p class="muted">Acceso estable para usuarios frecuentes.</p>
+              <button class="btn btn-primary">Elegir plan</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="eventos">
       <div class="container">
         <div class="section-head">
@@ -321,7 +388,23 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="criadores">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Criadores</h2>
+            <p class="muted">Espacio para mostrar perfiles destacados de la comunidad.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <article class="news-card"><div class="news-body"><h3>Familia Castillo</h3><p class="muted">Tradición, crianza y preparación de alto nivel.</p></div></article>
+          <article class="news-card"><div class="news-body"><h3>Galpón del Norte</h3><p class="muted">Participación constante en eventos regionales.</p></div></article>
+          <article class="news-card"><div class="news-body"><h3>Criadero Los Campeones</h3><p class="muted">Presencia destacada en transmisiones especiales.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="galeria">
       <div class="container news-grid">
         <div>
           <div class="section-head">
@@ -402,9 +485,14 @@
               </div>
 
               <div class="message-box" style="margin-top:16px;">
-                <div id="messageText" style="font-weight:800;font-size:1.02rem;">Gallo favorito:</div>
-                <div style="margin-top:12px;">
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                  <div id="messageText" style="font-weight:800;font-size:1.02rem;">Gallo favorito:</div>
                   <span class="pill-side pill-left" id="favoritePill">Izquierda</span>
+                </div>
+
+                <div class="editable-lines">
+                  <div id="coopText">Galpón: Familia Castillo</div>
+                  <div id="birdNameText">Nombre del Gallo: Ave Fenix</div>
                 </div>
               </div>
             </div>
@@ -415,10 +503,10 @@
                   <button class="btn btn-primary" id="btnActivateLeft" onclick="activateSide('left')">Voy Izquierda</button>
                 </div>
                 <div class="amounts">
-                  <button class="amount-btn" data-side="left" onclick="applyAmount('left',50)" disabled>50</button>
-                  <button class="amount-btn" data-side="left" onclick="applyAmount('left',100)" disabled>100</button>
-                  <button class="amount-btn" data-side="left" onclick="applyAmount('left',200)" disabled>200</button>
-                  <button class="amount-btn" data-side="left" onclick="applyAmount('left',500)" disabled>500</button>
+                  <button class="amount-btn" data-side="left" onclick="applyAmount('left',50)" disabled>Ǥ 50</button>
+                  <button class="amount-btn" data-side="left" onclick="applyAmount('left',100)" disabled>Ǥ 100</button>
+                  <button class="amount-btn" data-side="left" onclick="applyAmount('left',200)" disabled>Ǥ 200</button>
+                  <button class="amount-btn" data-side="left" onclick="applyAmount('left',500)" disabled>Ǥ 500</button>
                 </div>
               </div>
 
@@ -427,10 +515,10 @@
                   <button class="btn btn-secondary" id="btnActivateRight" onclick="activateSide('right')">Voy Derecha</button>
                 </div>
                 <div class="amounts">
-                  <button class="amount-btn" data-side="right" onclick="applyAmount('right',50)" disabled>50</button>
-                  <button class="amount-btn" data-side="right" onclick="applyAmount('right',100)" disabled>100</button>
-                  <button class="amount-btn" data-side="right" onclick="applyAmount('right',200)" disabled>200</button>
-                  <button class="amount-btn" data-side="right" onclick="applyAmount('right',500)" disabled>500</button>
+                  <button class="amount-btn" data-side="right" onclick="applyAmount('right',50)" disabled>Ǥ 50</button>
+                  <button class="amount-btn" data-side="right" onclick="applyAmount('right',100)" disabled>Ǥ 100</button>
+                  <button class="amount-btn" data-side="right" onclick="applyAmount('right',200)" disabled>Ǥ 200</button>
+                  <button class="amount-btn" data-side="right" onclick="applyAmount('right',500)" disabled>Ǥ 500</button>
                 </div>
               </div>
             </div>
@@ -454,19 +542,38 @@
       <div>
         <h4 class="footer-title">Secciones</h4>
         <div class="footer-list">
-          <a href="#eventos">Próximos eventos</a>
-          <a href="javascript:void(0)" onclick="openModal('loginModal')">Iniciar sesión</a>
-          <a href="javascript:void(0)" onclick="openModal('registerModal')">Registro</a>
+          <a href="#planes">Planes</a>
+          <a href="#eventos">Eventos</a>
+          <a href="#criadores">Criadores</a>
+          <a href="#galeria">Galería</a>
         </div>
       </div>
 
       <div>
-        <h4 class="footer-title">Comunidad</h4>
+        <h4 class="footer-title">Legal</h4>
         <div class="footer-list">
-          <span>Noticias y sorteos</span>
-          <span>Soporte por WhatsApp</span>
-          <span>Eventos en vivo</span>
+          <a href="javascript:void(0)">Términos y condiciones</a>
+          <a href="javascript:void(0)">Política de privacidad</a>
+          <a href="javascript:void(0)">📘 Libro de reclamaciones</a>
         </div>
+      </div>
+
+      <div>
+        <h4 class="footer-title">Auspiciadores</h4>
+        <div class="footer-list">
+          <span>Marca Uno</span>
+          <span>Marca Dos</span>
+          <span>Marca Tres</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="padding-bottom:24px;">
+      <div class="sponsors-grid">
+        <div class="sponsor-card"><div class="sponsor-body">AUSPICIADOR 1</div></div>
+        <div class="sponsor-card"><div class="sponsor-body">AUSPICIADOR 2</div></div>
+        <div class="sponsor-card"><div class="sponsor-body">AUSPICIADOR 3</div></div>
+        <div class="sponsor-card"><div class="sponsor-body">AUSPICIADOR 4</div></div>
       </div>
     </div>
 
@@ -562,11 +669,13 @@
     const state = {
       loggedIn: false,
       currentUser: null,
-      balance: 2000,
+      balance: 100.00,
       activeSide: null,
       selectedEventId: "evt1",
       message: "Gallo favorito:",
       favorite: "left",
+      coopText: "Galpón: Familia Castillo",
+      birdNameText: "Nombre del Gallo: Ave Fenix",
       events: [
         {
           id: "evt1",
@@ -575,7 +684,6 @@
           date: "Hoy · 8:00 PM",
           location: "Lima",
           status: "EN DIRECTO",
-          imageLabel: "Evento estelar",
           youtube: "https://www.youtube.com/embed/jfKfPfyJRdk"
         },
         {
@@ -585,7 +693,6 @@
           date: "Mañana · 7:30 PM",
           location: "Trujillo",
           status: "PROGRAMADO",
-          imageLabel: "Próximo evento",
           youtube: "https://www.youtube.com/embed/5qap5aO4i9A"
         },
         {
@@ -595,14 +702,12 @@
           date: "Domingo · 6:00 PM",
           location: "Chiclayo",
           status: "PROGRAMADO",
-          imageLabel: "Jornada especial",
           youtube: "https://www.youtube.com/embed/jfKfPfyJRdk"
         }
       ]
     };
 
     function qs(id){ return document.getElementById(id); }
-
     function openModal(id){ qs(id).classList.add("active"); }
     function closeModal(id){ qs(id).classList.remove("active"); }
 
@@ -660,6 +765,7 @@
       qs("dashboard").classList.toggle("active", state.loggedIn);
       if(state.loggedIn){
         qs("headerUser").textContent = DEMO_USER.username;
+        qs("headerBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
       }
     }
 
@@ -712,6 +818,8 @@
       qs("streamStatus").textContent = event.status;
       qs("streamFrame").src = event.youtube;
       qs("messageText").textContent = state.message;
+      qs("coopText").textContent = state.coopText;
+      qs("birdNameText").textContent = state.birdNameText;
       updateFavoritePill();
       renderEvents();
       resetButtons();
@@ -753,8 +861,9 @@
         return;
       }
       state.balance -= amount;
+      qs("headerBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
       const sideLabel = side === "left" ? "Izquierda" : "Derecha";
-      alert(`Has seleccionado ${sideLabel} con ${amount}.`);
+      alert(`Has seleccionado ${sideLabel} con Ǥ ${amount}.`);
     }
 
     function resetButtons(){
