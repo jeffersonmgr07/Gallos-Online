@@ -69,6 +69,20 @@
       background:transparent;
       border:1px solid rgba(255,255,255,.16);
     }
+    .btn-icon{
+      width:46px;
+      height:46px;
+      padding:0;
+      border-radius:50%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:transparent;
+      border:1px solid rgba(255,255,255,.14);
+      color:#fff;
+      font-size:1.15rem;
+      cursor:pointer;
+    }
     .btn[disabled]{
       opacity:.45;
       cursor:not-allowed;
@@ -167,37 +181,33 @@
       position:relative;
     }
 
-    .mobile-login-btn{
+    .mobile-icons{
       display:none;
-      width:46px;
-      height:46px;
-      border-radius:50%;
       align-items:center;
-      justify-content:center;
-      font-size:1.1rem;
-      padding:0;
+      gap:8px;
     }
 
-    .panel-menu{
+    .dropdown-menu{
       position:absolute;
       top:58px;
       right:0;
-      min-width:250px;
+      min-width:240px;
       background:#0a140f;
       border:1px solid rgba(255,255,255,.08);
       border-radius:18px;
       box-shadow:var(--shadow);
       padding:10px;
       display:none;
+      z-index:1200;
     }
 
-    .panel-menu.active{
+    .dropdown-menu.active{
       display:grid;
       gap:6px;
     }
 
-    .panel-menu a,
-    .panel-menu button{
+    .dropdown-menu a,
+    .dropdown-menu button{
       padding:12px 14px;
       border-radius:12px;
       background:#13211a;
@@ -205,10 +215,11 @@
       text-align:left;
       border:none;
       cursor:pointer;
+      font:inherit;
     }
 
-    .panel-menu a:hover,
-    .panel-menu button:hover{background:#1a2b22}
+    .dropdown-menu a:hover,
+    .dropdown-menu button:hover{background:#1a2b22}
 
     .hero{
       padding:26px 0 18px;
@@ -219,7 +230,7 @@
       gap:18px;
     }
 
-    .hero-image{
+    .hero-video-wrap{
       width:100%;
       max-width:1120px;
       margin:0 auto;
@@ -227,9 +238,25 @@
       border-radius:34px;
       overflow:hidden;
       box-shadow:var(--shadow);
-      background:url("./img/hero1.jpg") center center / cover no-repeat;
-      border:none;
-      outline:none;
+      position:relative;
+      background:#000;
+    }
+
+    .hero-video-wrap video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .hero-video-overlay{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(7,16,12,.28), rgba(7,16,12,.62)),
+        linear-gradient(90deg, rgba(7,16,12,.18), rgba(7,16,12,.30));
+      pointer-events:none;
     }
 
     .hero-copy{
@@ -574,30 +601,10 @@
       margin-bottom:14px;
     }
 
-    .dashboard-summary{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:6px;
-    }
-
-    .dashboard-summary .summary-chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      font-size:.92rem;
-      font-weight:700;
-    }
-
     .dashboard-top h2{
       margin:0;
       font-family:"Montserrat",sans-serif;
-      font-size:1.15rem;
+      font-size:1rem;
       letter-spacing:0;
       line-height:1.1;
       white-space:nowrap;
@@ -814,44 +821,33 @@
         display:none;
       }
 
-      .header-actions .btn:not(.mobile-login-btn){
+      #headerActionsPublic > .btn{
         display:none;
       }
 
-      .mobile-login-btn{
-        display:inline-flex;
+      .mobile-icons{
+        display:flex;
       }
 
       #headerActionsPrivate{
         display:flex !important;
-        grid-column:1/-1;
-        width:100%;
-        justify-content:space-between;
-        align-items:center;
-        gap:8px;
+        grid-column:2;
+        justify-content:flex-end;
       }
 
       #headerActionsPrivate .tag{
-        padding:7px 10px;
-        font-size:.82rem;
+        display:none;
       }
 
-      #headerActionsPrivate .btn{
-        padding:10px 14px;
-      }
-
-      .panel-menu{
-        right:0;
-        left:auto;
-        top:54px;
-        min-width:220px;
+      #headerActionsPrivate > .btn{
+        display:none;
       }
 
       .hero{
         padding-top:18px;
       }
 
-      .hero-image{
+      .hero-video-wrap{
         min-height:220px;
         border-radius:24px;
       }
@@ -881,11 +877,7 @@
       }
 
       .dashboard-top h2{
-        font-size:1rem;
-      }
-
-      .dashboard-summary{
-        gap:8px;
+        font-size:.94rem;
       }
 
       .dashboard-grid{
@@ -956,14 +948,28 @@
       <div class="header-actions" id="headerActionsPublic">
         <button class="btn btn-ghost" onclick="openModal('loginModal')">Iniciar sesión</button>
         <button class="btn btn-primary" onclick="openModal('registerModal')">Registrarse</button>
-        <button class="btn btn-secondary mobile-login-btn" onclick="openModal('loginModal')" aria-label="Iniciar sesión">👤</button>
+
+        <div class="mobile-icons">
+          <button class="btn-icon" onclick="toggleMobileNav()" aria-label="Menú">☰</button>
+          <button class="btn-icon" onclick="openModal('loginModal')" aria-label="Iniciar sesión">👤</button>
+        </div>
+
+        <div class="dropdown-menu" id="mobileNavMenu">
+          <a href="#planes" onclick="closeMobileNav()">Planes</a>
+          <a href="#eventos" onclick="closeMobileNav()">Eventos</a>
+          <a href="#criadores" onclick="closeMobileNav()">Criadores</a>
+          <a href="#galeria" onclick="closeMobileNav()">Galería</a>
+          <button onclick="closeMobileNav(); openModal('registerModal')">Registrarse</button>
+        </div>
       </div>
 
       <div class="header-actions hidden" id="headerActionsPrivate">
         <span class="tag">Usuario: <strong id="headerUser">SCastillo</strong></span>
         <span class="tag">Saldo: <strong id="headerBalance">Ǥ 100.00</strong></span>
         <button class="btn btn-secondary" onclick="togglePanelMenu()">Mi panel</button>
-        <div class="panel-menu" id="panelMenu">
+        <button class="btn-icon" onclick="togglePanelMenu()" aria-label="Mi panel">☰</button>
+
+        <div class="dropdown-menu" id="panelMenu">
           <a href="javascript:void(0)">Recargar saldo</a>
           <a href="javascript:void(0)">Mis datos</a>
           <a href="javascript:void(0)">Premios por cobrar</a>
@@ -979,7 +985,12 @@
   <main id="publicSite">
     <section class="hero">
       <div class="container hero-stack">
-        <div class="hero-image" aria-label="Imagen principal del hero"></div>
+        <div class="hero-video-wrap" aria-label="Video principal del hero">
+          <video autoplay muted loop playsinline>
+            <source src="./video/hero.mp4" type="video/mp4">
+          </video>
+          <div class="hero-video-overlay"></div>
+        </div>
 
         <div class="hero-copy">
           <div class="eyebrow">● En vivo · Eventos premium · Comunidad exclusiva</div>
@@ -1142,12 +1153,7 @@
   <section class="dashboard" id="dashboard">
     <div class="container">
       <div class="dashboard-top">
-        <div class="dashboard-summary">
-          <span class="summary-chip">Usuario: <strong id="dashboardUser">SCastillo</strong></span>
-          <span class="summary-chip">Saldo: <strong id="dashboardBalance">Ǥ 100.00</strong></span>
-          <span class="summary-chip">Mi panel</span>
-        </div>
-        <h2>Bienvenido a tu panel de transmisiones</h2>
+        <h2>Bienvenido, <span id="dashboardUser">SCastillo</span></h2>
       </div>
 
       <div class="dashboard-grid">
@@ -1381,7 +1387,7 @@
           date: "Hoy · 8:00 PM",
           location: "Lima",
           status: "EN DIRECTO",
-          youtube: "https://www.youtube.com/embed/CwRa4p7bugk",
+          youtube: "https://www.youtube.com/embed/Uyqe1CfHn5s",
           imageClass: "event-thumb-1"
         },
         {
@@ -1391,7 +1397,7 @@
           date: "Mañana · 7:30 PM",
           location: "Trujillo",
           status: "PROGRAMADO",
-          youtube: "https://www.youtube.com/embed/CwRa4p7bugk",
+          youtube: "https://www.youtube.com/embed/Uyqe1CfHn5s",
           imageClass: "event-thumb-2"
         },
         {
@@ -1401,7 +1407,7 @@
           date: "Domingo · 6:00 PM",
           location: "Chiclayo",
           status: "PROGRAMADO",
-          youtube: "https://www.youtube.com/embed/CwRa4p7bugk",
+          youtube: "https://www.youtube.com/embed/Uyqe1CfHn5s",
           imageClass: "event-thumb-3"
         }
       ]
@@ -1412,6 +1418,15 @@
     function openModal(id){ qs(id).classList.add("active"); }
     function closeModal(id){ qs(id).classList.remove("active"); }
 
+    function closeMobileNav(){
+      qs("mobileNavMenu")?.classList.remove("active");
+    }
+
+    function toggleMobileNav(){
+      qs("mobileNavMenu")?.classList.toggle("active");
+      qs("panelMenu")?.classList.remove("active");
+    }
+
     window.addEventListener("click", (e) => {
       document.querySelectorAll(".modal.active").forEach(modal => {
         if (e.target === modal) modal.classList.remove("active");
@@ -1420,10 +1435,15 @@
       if (!e.target.closest("#panelMenu") && !e.target.closest('[onclick="togglePanelMenu()"]')) {
         qs("panelMenu")?.classList.remove("active");
       }
+
+      if (!e.target.closest("#mobileNavMenu") && !e.target.closest('[onclick="toggleMobileNav()"]')) {
+        qs("mobileNavMenu")?.classList.remove("active");
+      }
     });
 
     function togglePanelMenu(){
       qs("panelMenu").classList.toggle("active");
+      qs("mobileNavMenu")?.classList.remove("active");
     }
 
     function registerMock(){
@@ -1460,6 +1480,7 @@
       state.currentUser = null;
       state.balance = 100.00;
       qs("panelMenu").classList.remove("active");
+      qs("mobileNavMenu").classList.remove("active");
       renderAuth();
       window.scrollTo({ top:0, behavior:"smooth" });
     }
@@ -1521,7 +1542,6 @@
     function renderDashboard(){
       const event = getEventById(state.selectedEventId);
       qs("dashboardUser").textContent = state.currentUser ? state.currentUser.username : "SCastillo";
-      qs("dashboardBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
       qs("streamTitle").textContent = event.title;
       qs("streamSubtitle").textContent = event.subtitle;
       qs("streamStatus").textContent = event.status;
@@ -1573,7 +1593,6 @@
 
       state.balance -= amount;
       qs("headerBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
-      qs("dashboardBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
       const sideLabel = side === "left" ? "Izquierda" : "Derecha";
       alert(`Has seleccionado ${sideLabel} con Ǥ ${amount}.`);
     }
@@ -1589,6 +1608,7 @@
       if(e.key === "Escape"){
         document.querySelectorAll(".modal.active").forEach(m => m.classList.remove("active"));
         qs("panelMenu").classList.remove("active");
+        qs("mobileNavMenu").classList.remove("active");
       }
     });
 
