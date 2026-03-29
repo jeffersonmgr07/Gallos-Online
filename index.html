@@ -12,16 +12,15 @@
     :root{
       --bg:#07100c;
       --bg-soft:#0c1711;
-      --panel:#0e1b14;
-      --panel-2:#12231a;
-      --line:rgba(255,255,255,.09);
-      --text:#f8faf8;
-      --muted:#afbbb4;
+      --panel:#0f1b15;
+      --panel-2:#13231b;
+      --line:rgba(255,255,255,.08);
+      --text:#f7faf7;
+      --muted:#aeb9b2;
       --gold:#d9aa2b;
-      --gold-2:#f1cd69;
-      --green:#1c8d54;
+      --gold-2:#f0cb63;
       --shadow:0 22px 55px rgba(0,0,0,.34);
-      --radius-xl:28px;
+      --radius-xl:30px;
       --radius-lg:22px;
       --radius-md:16px;
       --max:1380px;
@@ -34,8 +33,9 @@
       font-family:"Open Sans",sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at top right, rgba(217,170,43,.10), transparent 28%),
-        linear-gradient(180deg,#06100c 0%,#0b1611 42%,#07100c 100%);
+        radial-gradient(circle at top right, rgba(217,170,43,.08), transparent 28%),
+        linear-gradient(180deg,#06100c 0%,#0b1611 45%,#07100c 100%);
+      overflow-x:hidden;
     }
 
     img{max-width:100%;display:block}
@@ -55,13 +55,13 @@
     }
     .btn:hover{transform:translateY(-2px)}
     .btn-primary{
-      color:#181208;
+      color:#171208;
       background:linear-gradient(135deg,var(--gold),var(--gold-2));
-      box-shadow:0 14px 28px rgba(217,170,43,.18);
+      box-shadow:0 14px 28px rgba(217,170,43,.16);
     }
     .btn-secondary{
       color:#fff;
-      background:#182920;
+      background:#1a2a22;
       border:1px solid var(--line);
     }
     .btn-ghost{
@@ -94,7 +94,7 @@
       top:0;
       z-index:1100;
       backdrop-filter:blur(14px);
-      background:rgba(7,12,9,.72);
+      background:rgba(7,12,9,.74);
       border-bottom:1px solid rgba(255,255,255,.06);
     }
 
@@ -103,7 +103,7 @@
       display:grid;
       grid-template-columns:auto 1fr auto;
       align-items:center;
-      gap:26px;
+      gap:24px;
     }
 
     .brand{
@@ -156,7 +156,7 @@
     }
 
     .main-nav a:hover::after{width:100%}
-    .main-nav a:hover{color:#fff2c4}
+    .main-nav a:hover{color:#fff0bc}
 
     .header-actions{
       display:flex;
@@ -167,10 +167,21 @@
       position:relative;
     }
 
+    .mobile-login-btn{
+      display:none;
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      align-items:center;
+      justify-content:center;
+      font-size:1.1rem;
+      padding:0;
+    }
+
     .panel-menu{
       position:absolute;
       top:58px;
-      right:70px;
+      right:0;
       min-width:250px;
       background:#0a140f;
       border:1px solid rgba(255,255,255,.08);
@@ -185,37 +196,54 @@
       gap:6px;
     }
 
-    .panel-menu a{
+    .panel-menu a,
+    .panel-menu button{
       padding:12px 14px;
       border-radius:12px;
       background:#13211a;
       color:#ebf1ed;
+      text-align:left;
+      border:none;
+      cursor:pointer;
     }
 
-    .panel-menu a:hover{background:#1a2b22}
+    .panel-menu a:hover,
+    .panel-menu button:hover{background:#1a2b22}
 
     .hero{
-      padding:36px 0 22px;
+      padding:26px 0 18px;
     }
 
-    .hero-grid{
+    .hero-stack{
       display:grid;
-      grid-template-columns:1.03fr .97fr;
-      gap:26px;
-      align-items:stretch;
+      gap:18px;
+    }
+
+    .hero-image{
+      width:100%;
+      max-width:1120px;
+      margin:0 auto;
+      min-height:360px;
+      border-radius:34px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:url("./img/hero1.jpg") center center / cover no-repeat;
+      border:none;
+      outline:none;
     }
 
     .hero-copy{
-      padding:38px;
+      width:100%;
+      max-width:1120px;
+      margin:0 auto;
+      padding:34px 38px;
       border-radius:34px;
       background:
         linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)),
         linear-gradient(135deg, rgba(217,170,43,.08), rgba(255,255,255,.01));
       border:1px solid rgba(255,255,255,.08);
       box-shadow:var(--shadow);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
+      text-align:center;
     }
 
     .eyebrow{
@@ -229,38 +257,28 @@
       color:#ffe39b;
       font-weight:700;
       margin-bottom:18px;
-      width:max-content;
     }
 
     .hero h1{
       margin:0 0 16px;
       font-family:"Montserrat",sans-serif;
-      font-size:clamp(2.4rem,4.6vw,4.7rem);
-      line-height:.96;
-      letter-spacing:-1.3px;
-      max-width:12ch;
+      font-size:clamp(2.2rem,4.1vw,4.3rem);
+      line-height:.98;
+      letter-spacing:-1.1px;
     }
 
     .hero p{
-      margin:0 0 24px;
+      margin:0 auto 24px;
       font-size:1.04rem;
       color:#dbe4de;
-      max-width:58ch;
+      max-width:64ch;
     }
 
     .hero-actions{
       display:flex;
+      justify-content:center;
       gap:12px;
       flex-wrap:wrap;
-    }
-
-    .hero-image{
-      min-height:520px;
-      border-radius:34px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:var(--shadow);
-      background:url("./img/hero1.jpg") center center / cover no-repeat;
     }
 
     .section{
@@ -286,12 +304,6 @@
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:18px;
-    }
-
-    .cards-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:16px;
     }
 
     .plan-card,
@@ -381,7 +393,6 @@
     }
 
     .sponsor-card{
-      padding:0;
       min-height:110px;
       display:flex;
       align-items:center;
@@ -393,7 +404,6 @@
       max-width:78%;
       max-height:60px;
       object-fit:contain;
-      filter:grayscale(0%);
       opacity:.95;
     }
 
@@ -447,20 +457,24 @@
 
     .wa-float{
       position:fixed;
-      right:22px;
-      bottom:22px;
+      right:20px;
+      bottom:20px;
       z-index:1200;
-      width:92px;
-      height:92px;
+      width:98px;
+      height:98px;
       border-radius:50%;
       display:grid;
       place-items:center;
       background:#25d366;
-      color:#fff;
-      font-size:2.6rem;
-      font-weight:900;
       box-shadow:0 26px 45px rgba(37,211,102,.36);
-      border:4px solid rgba(255,255,255,.16);
+      border:4px solid rgba(255,255,255,.14);
+      overflow:hidden;
+    }
+
+    .wa-float img{
+      width:68%;
+      height:68%;
+      object-fit:contain;
     }
 
     .wa-float:hover{
@@ -551,20 +565,44 @@
 
     .dashboard{
       display:none;
-      padding:20px 0 26px;
+      padding:18px 0 26px;
     }
 
     .dashboard.active{display:block}
 
     .dashboard-top{
-      margin-bottom:18px;
+      margin-bottom:14px;
+    }
+
+    .dashboard-summary{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:6px;
+    }
+
+    .dashboard-summary .summary-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:.92rem;
+      font-weight:700;
     }
 
     .dashboard-top h2{
-      margin:0 0 6px;
+      margin:0;
       font-family:"Montserrat",sans-serif;
-      font-size:2rem;
-      letter-spacing:-.4px;
+      font-size:1.15rem;
+      letter-spacing:0;
+      line-height:1.1;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
 
     .dashboard-grid{
@@ -740,7 +778,6 @@
     }
 
     @media (max-width:1080px){
-      .hero-grid,
       .news-grid,
       .dashboard-grid{
         grid-template-columns:1fr;
@@ -749,7 +786,6 @@
       .criadores-grid{
         grid-template-columns:repeat(2,1fr);
       }
-      .cards-4,
       .sponsors-grid{
         grid-template-columns:repeat(2,1fr);
       }
@@ -764,45 +800,136 @@
 
     @media (max-width:760px){
       .header-inner{
-        grid-template-columns:1fr;
-        gap:14px;
+        grid-template-columns:1fr auto;
+        gap:12px;
+        min-height:auto;
         padding:14px 0;
       }
-      .brand,
-      .header-actions{
-        width:100%;
+
+      .brand-copy span{
+        display:none;
       }
+
       .main-nav{
-        gap:18px;
-        justify-content:flex-start;
-        overflow:auto;
+        display:none;
       }
+
+      .header-actions .btn:not(.mobile-login-btn){
+        display:none;
+      }
+
+      .mobile-login-btn{
+        display:inline-flex;
+      }
+
+      #headerActionsPrivate{
+        display:flex !important;
+        grid-column:1/-1;
+        width:100%;
+        justify-content:space-between;
+        align-items:center;
+        gap:8px;
+      }
+
+      #headerActionsPrivate .tag{
+        padding:7px 10px;
+        font-size:.82rem;
+      }
+
+      #headerActionsPrivate .btn{
+        padding:10px 14px;
+      }
+
       .panel-menu{
         right:0;
-        left:0;
-        top:58px;
+        left:auto;
+        top:54px;
+        min-width:220px;
       }
-      .hero-copy{
-        padding:28px;
+
+      .hero{
+        padding-top:18px;
       }
+
       .hero-image{
-        min-height:300px;
+        min-height:220px;
+        border-radius:24px;
       }
+
+      .hero-copy{
+        padding:24px 20px;
+        border-radius:24px;
+      }
+
+      .hero h1{
+        font-size:clamp(1.7rem,7vw,2.4rem);
+      }
+
       .cards-3,
-      .cards-4,
       .criadores-grid,
-      .choice-grid,
       .form-grid,
       .sponsors-grid{
         grid-template-columns:1fr;
       }
+
       .footer-grid{
         grid-template-columns:1fr;
       }
+
+      .dashboard{
+        padding-top:10px;
+      }
+
+      .dashboard-top h2{
+        font-size:1rem;
+      }
+
+      .dashboard-summary{
+        gap:8px;
+      }
+
+      .dashboard-grid{
+        display:flex;
+        flex-direction:column;
+        gap:16px;
+      }
+
+      .content-wrap{
+        order:1;
+      }
+
+      .events-sidebar{
+        order:2;
+      }
+
+      .choice-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+      }
+
+      .choice-card{
+        padding:14px;
+      }
+
+      .choice-main .btn{
+        width:100%;
+        padding:11px 12px;
+        font-size:.9rem;
+      }
+
+      .amounts{
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+      }
+
+      .amount-btn{
+        padding:10px 8px;
+        font-size:.9rem;
+      }
+
       .wa-float{
-        width:82px;
-        height:82px;
-        font-size:2.3rem;
+        width:86px;
+        height:86px;
       }
     }
   </style>
@@ -829,11 +956,12 @@
       <div class="header-actions" id="headerActionsPublic">
         <button class="btn btn-ghost" onclick="openModal('loginModal')">Iniciar sesión</button>
         <button class="btn btn-primary" onclick="openModal('registerModal')">Registrarse</button>
+        <button class="btn btn-secondary mobile-login-btn" onclick="openModal('loginModal')" aria-label="Iniciar sesión">👤</button>
       </div>
 
       <div class="header-actions hidden" id="headerActionsPrivate">
         <span class="tag">Usuario: <strong id="headerUser">SCastillo</strong></span>
-        <span class="tag">Saldo disponible: <strong id="headerBalance">Ǥ 100.00</strong></span>
+        <span class="tag">Saldo: <strong id="headerBalance">Ǥ 100.00</strong></span>
         <button class="btn btn-secondary" onclick="togglePanelMenu()">Mi panel</button>
         <div class="panel-menu" id="panelMenu">
           <a href="javascript:void(0)">Recargar saldo</a>
@@ -842,29 +970,29 @@
           <a href="javascript:void(0)">Casos pendientes</a>
           <a href="javascript:void(0)">Mi suscripción</a>
           <a href="javascript:void(0)">Historial de apuestas</a>
+          <button onclick="logout()">Salir</button>
         </div>
-        <button class="btn btn-ghost" onclick="logout()">Salir</button>
       </div>
     </div>
   </header>
 
   <main id="publicSite">
     <section class="hero">
-      <div class="container hero-grid">
+      <div class="container hero-stack">
+        <div class="hero-image" aria-label="Imagen principal del hero"></div>
+
         <div class="hero-copy">
           <div class="eyebrow">● En vivo · Eventos premium · Comunidad exclusiva</div>
           <h1>Streaming de alto impacto con una experiencia premium.</h1>
           <p>
             Sigue transmisiones especiales en tiempo real desde una plataforma elegante,
-            rápida y optimizada para PC, con acceso a planes, eventos y comunidad.
+            rápida y optimizada para PC y móvil, con acceso a planes, eventos y comunidad.
           </p>
           <div class="hero-actions">
             <button class="btn btn-primary" onclick="openModal('registerModal')">Crear cuenta</button>
             <button class="btn btn-secondary" onclick="openModal('loginModal')">Iniciar sesión</button>
           </div>
         </div>
-
-        <div class="hero-image" aria-label="Imagen principal del hero"></div>
       </div>
     </section>
 
@@ -1014,8 +1142,12 @@
   <section class="dashboard" id="dashboard">
     <div class="container">
       <div class="dashboard-top">
-        <h2>Bienvenido, <span id="dashboardUser">SCastillo</span></h2>
-        <p class="muted" style="margin:0;">Elige un evento para abrir la transmisión</p>
+        <div class="dashboard-summary">
+          <span class="summary-chip">Usuario: <strong id="dashboardUser">SCastillo</strong></span>
+          <span class="summary-chip">Saldo: <strong id="dashboardBalance">Ǥ 100.00</strong></span>
+          <span class="summary-chip">Mi panel</span>
+        </div>
+        <h2>Bienvenido a tu panel de transmisiones</h2>
       </div>
 
       <div class="dashboard-grid">
@@ -1133,10 +1265,10 @@
 
     <div class="container" style="padding-bottom:24px;">
       <div class="sponsors-grid">
-        <div class="sponsor-card"><div class="sponsor-body"><img src="./img/auspiciador1.png" alt="Auspiciador 1"></div></div>
-        <div class="sponsor-card"><div class="sponsor-body"><img src="./img/auspiciador2.png" alt="Auspiciador 2"></div></div>
-        <div class="sponsor-card"><div class="sponsor-body"><img src="./img/auspiciador3.png" alt="Auspiciador 3"></div></div>
-        <div class="sponsor-card"><div class="sponsor-body"><img src="./img/auspiciador4.png" alt="Auspiciador 4"></div></div>
+        <div class="sponsor-card"><img src="./img/auspiciador1.png" alt="Auspiciador 1"></div>
+        <div class="sponsor-card"><img src="./img/auspiciador2.png" alt="Auspiciador 2"></div>
+        <div class="sponsor-card"><img src="./img/auspiciador3.png" alt="Auspiciador 3"></div>
+        <div class="sponsor-card"><img src="./img/auspiciador4.png" alt="Auspiciador 4"></div>
       </div>
     </div>
 
@@ -1145,7 +1277,9 @@
     </div>
   </footer>
 
-  <a class="wa-float" href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
+  <a class="wa-float" href="https://wa.me/51999999999" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <img src="./img/logowhatsapp.png" alt="WhatsApp">
+  </a>
 
   <div class="modal" id="loginModal">
     <div class="modal-card">
@@ -1223,11 +1357,11 @@
   </div>
 
   <script>
-    const DEMO_USER = {
-      username: "SCastillo",
-      password: "Lima2026",
-      name: "Sergio Castillo"
-    };
+    const USERS = [
+      { username: "SCastillo", name: "Silvia Castillo", password: "Lima2026", balance: 100.00 },
+      { username: "HCasas", name: "Hector Casas", password: "Lima2026", balance: 100.00 },
+      { username: "Jgarcia", name: "Jefferson García", password: "Lima2026", balance: 100.00 }
+    ];
 
     const state = {
       loggedIn: false,
@@ -1247,7 +1381,7 @@
           date: "Hoy · 8:00 PM",
           location: "Lima",
           status: "EN DIRECTO",
-          youtube: "https://www.youtube.com/embed/jfKfPfyJRdk",
+          youtube: "https://www.youtube.com/embed/CwRa4p7bugk",
           imageClass: "event-thumb-1"
         },
         {
@@ -1257,7 +1391,7 @@
           date: "Mañana · 7:30 PM",
           location: "Trujillo",
           status: "PROGRAMADO",
-          youtube: "https://www.youtube.com/embed/5qap5aO4i9A",
+          youtube: "https://www.youtube.com/embed/CwRa4p7bugk",
           imageClass: "event-thumb-2"
         },
         {
@@ -1267,7 +1401,7 @@
           date: "Domingo · 6:00 PM",
           location: "Chiclayo",
           status: "PROGRAMADO",
-          youtube: "https://www.youtube.com/embed/jfKfPfyJRdk",
+          youtube: "https://www.youtube.com/embed/CwRa4p7bugk",
           imageClass: "event-thumb-3"
         }
       ]
@@ -1301,16 +1435,19 @@
       const user = qs("loginUser").value.trim();
       const pass = qs("loginPass").value.trim();
 
-      if(user === DEMO_USER.username && pass === DEMO_USER.password){
-        finishLogin();
+      const foundUser = USERS.find(u => u.username === user && u.password === pass);
+
+      if(foundUser){
+        finishLogin(foundUser);
       } else {
         alert("Credenciales incorrectas.");
       }
     }
 
-    function finishLogin(){
+    function finishLogin(user){
       state.loggedIn = true;
-      state.currentUser = DEMO_USER.name;
+      state.currentUser = user;
+      state.balance = user.balance;
       closeModal("loginModal");
       closeModal("registerModal");
       renderAuth();
@@ -1321,6 +1458,7 @@
     function logout(){
       state.loggedIn = false;
       state.currentUser = null;
+      state.balance = 100.00;
       qs("panelMenu").classList.remove("active");
       renderAuth();
       window.scrollTo({ top:0, behavior:"smooth" });
@@ -1333,8 +1471,8 @@
       qs("dashboard").classList.toggle("active", state.loggedIn);
       qs("publicNav").classList.toggle("hidden", state.loggedIn);
 
-      if(state.loggedIn){
-        qs("headerUser").textContent = DEMO_USER.username;
+      if(state.loggedIn && state.currentUser){
+        qs("headerUser").textContent = state.currentUser.username;
         qs("headerBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
       }
     }
@@ -1382,7 +1520,8 @@
 
     function renderDashboard(){
       const event = getEventById(state.selectedEventId);
-      qs("dashboardUser").textContent = state.currentUser || DEMO_USER.name;
+      qs("dashboardUser").textContent = state.currentUser ? state.currentUser.username : "SCastillo";
+      qs("dashboardBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
       qs("streamTitle").textContent = event.title;
       qs("streamSubtitle").textContent = event.subtitle;
       qs("streamStatus").textContent = event.status;
@@ -1434,6 +1573,7 @@
 
       state.balance -= amount;
       qs("headerBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
+      qs("dashboardBalance").textContent = `Ǥ ${state.balance.toFixed(2)}`;
       const sideLabel = side === "left" ? "Izquierda" : "Derecha";
       alert(`Has seleccionado ${sideLabel} con Ǥ ${amount}.`);
     }
